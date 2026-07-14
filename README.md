@@ -4,21 +4,21 @@ An end-to-end real-time Data Engineering and AI pipeline that ingests live crypt
 
 🏗️ Architecture
 graph TD
-    subgraph Ingestion
-    A[Binance WebSocket] -->|Live BTC Trades| B(Redpanda Broker)
+    subgraph "Ingestion"
+    A["Binance WebSocket"] -->|Live BTC Trades| B["Redpanda Broker"]
     end
-    
-    subgraph Processing_Storage
-    B -->|Raw JSON| C[Python Consumer]
-    C -->|Text Formatted| D((HuggingFace MiniLM))
-    D -->|384d Vectors| E((Qdrant Vector DB))
+
+    subgraph "Processing & Storage"
+    B -->|Raw JSON| C["Python Consumer"]
+    C -->|Text Formatted| D(("HuggingFace MiniLM"))
+    D -->|384d Vectors| E(("Qdrant Vector DB"))
     end
-    
-    subgraph UI_AI
-    F[User] -->|Asks Question| G[Streamlit Web App]
+
+    subgraph "User Interface & AI"
+    F["User"] -->|Asks Question| G["Streamlit Web App"]
     G -->|Similarity Search| E
     E -.->|Top 3 Matches| G
-    G -->|Context + Prompt| H{Google Gemini API}
+    G -->|Context + Prompt| H{"Google Gemini API"}
     H -.->|Natural Answer| G
     end
 
