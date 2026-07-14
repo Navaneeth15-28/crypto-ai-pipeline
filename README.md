@@ -21,7 +21,7 @@ graph TD
     G -->|Context + Prompt| H{"Google Gemini API"}
     H -.->|Natural Answer| G
     end
-    '''
+    ```
 🛠️ Tech Stack
 Language: Python 3.x
 
