@@ -9,13 +9,11 @@ graph TD
     subgraph Ingestion
     A["Binance WebSocket"] -->|Live BTC Trades| B["Redpanda Broker"]
     end
-
     subgraph Processing_Storage
     B -->|Raw JSON| C["Python Consumer"]
     C -->|Text Formatted| D(("HuggingFace MiniLM"))
     D -->|384d Vectors| E(("Qdrant Vector DB"))
     end
-
     subgraph UI_AI
     F["User"] -->|Asks Question| G["Streamlit Web App"]
     G -->|Similarity Search| E
@@ -23,6 +21,7 @@ graph TD
     G -->|Context + Prompt| H{"Google Gemini API"}
     H -.->|Natural Answer| G
     end
+    '''
 🛠️ Tech Stack
 Language: Python 3.x
 
