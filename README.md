@@ -1,15 +1,8 @@
-📈 Crypto-AI Live Search (Streaming RAG Pipeline)
-
-An end-to-end real-time Data Engineering and AI pipeline that ingests live cryptocurrency trades, vectorizes them on the fly, and allows users to query the live stream using Generative AI.
-
-🏗️ Architecture
-
 # 📈 Crypto-AI Live Search (Streaming RAG Pipeline)
 
 An end-to-end real-time Data Engineering and AI pipeline that ingests live cryptocurrency trades, vectorizes them on the fly, and allows users to query the live stream using Generative AI.
 
 ## 🏗️ Architecture
-
 # 📈 Crypto-AI Live Search (Streaming RAG Pipeline)
 
 An end-to-end real-time Data Engineering and AI pipeline that ingests live cryptocurrency trades, vectorizes them on the fly, and allows users to query the live stream using Generative AI.
@@ -35,6 +28,7 @@ graph TD
     G -->|Context + Prompt| H{"Google Gemini API"}
     H -.->|Natural Answer| G
     end
+
 
 
 🛠️ Tech Stack
