@@ -4,6 +4,13 @@ An end-to-end real-time Data Engineering and AI pipeline that ingests live crypt
 
 🏗️ Architecture
 
+# 📈 Crypto-AI Live Search (Streaming RAG Pipeline)
+
+An end-to-end real-time Data Engineering and AI pipeline that ingests live cryptocurrency trades, vectorizes them on the fly, and allows users to query the live stream using Generative AI.
+
+## 🏗️ Architecture
+
+```mermaid
 graph TD
     subgraph Ingestion
     A["Binance WebSocket"] -->|Live BTC Trades| B["Redpanda Broker"]
