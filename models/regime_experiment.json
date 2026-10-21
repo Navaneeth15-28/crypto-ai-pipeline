@@ -1,0 +1,15 @@
+{
+    "horizon_seconds": 30,
+    "threshold": 0.0002,
+    "total_labeled_rows": 5457,
+    "chronological_split_percent": 0.7000000000000001,
+    "full_training_rows": 3819,
+    "recent_training_rows": 2500,
+    "test_rows": 1638,
+    "models": {
+        "full_logistic_accuracy": 0.3492063492063492,
+        "full_xgb_accuracy": 0.3992673992673993,
+        "recent_logistic_accuracy": 0.4731379731379731,
+        "recent_xgb_accuracy": 0.4072039072039072
+    }
+}

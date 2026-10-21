@@ -4,3 +4,11 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Environments
+venv/
+.venv/
+env/
+
+# SQLite databases (data store is generated locally via collect_initial_data.py)
+*.db
