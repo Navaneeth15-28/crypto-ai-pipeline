@@ -4,38 +4,39 @@ An end-to-end, academic and production-grade real-time MLOps pipeline that inges
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
+
+<div align="center">
+  <img src="assets/architecture.svg" alt="Crypto-AI MLOps System Architecture" width="100%" />
+</div>
+
+<details>
+<summary><b>Click to expand ASCII / Mermaid Flowchart</b></summary>
 
 ```mermaid
-graph TD
-    subgraph Ingestion
-    A["Binance WebSocket (btcusdt@trade)"] -->|Live Ticks with Maker/Taker| B["Redpanda Broker: 'btc-trades'"]
+flowchart LR
+    subgraph Ingestion ["1. Data Ingestion"]
+        A["Binance WebSocket"] -->|Trade Ticks| B["binance_producer.py"]
+        B -->|JSON with Maker/Taker| C["Redpanda: btc-trades"]
     end
 
-    subgraph Deep_Learning_and_MLOps
-    B --> C["Feature Store (SQLite: historical_features.db)"]
-    C -.->|Sequence Modeling| D["PyTorch Stacked LSTM + Temporal Attention (models/dl_lstm_model.pth)"]
-    C -.->|Comparative Baseline| E["XGBoost Model (models/model.pkl)"]
-    B --> F["Streaming Feature Engine (57 Features)"]
-    F --> G["Live Inference Service (inference/realtime_predictor.py)"]
-    D -.->|Loads PyTorch Model| G
-    E -.->|Loads XGBoost Model| G
-    G -->|Dual Predictions + Confidence| H["Redpanda Broker: 'btc-predictions'"]
+    subgraph MLOps ["2. Feature Engine & Models"]
+        C --> D["StreamingFeatureEngine"]
+        D --> E["Feature Store: SQLite"]
+        E -.->|10-Tick Sequence| F["PyTorch LSTM + Attention"]
+        E -.->|Tabular Baseline| G["XGBoost Model"]
     end
 
-    subgraph UI_Monitoring_and_Paper_Trading
-    H --> I["Streamlit Dashboard (ui/app.py)"]
-    I --> J["Live Charts, XAI Copilot & Drift Metrics"]
-    I --> K["Fee-Adjusted Paper Trading (Binance 0.04% Fees)"]
-    I --> L["PyTorch Loss Curves & Comparative Evaluation"]
-    end
-
-    subgraph Semantic_RAG
-    B --> M["Consumer & MiniLM Embedding (384-dim)"]
-    M --> N["Qdrant Vector DB"]
-    N --> O["Gemini GenAI RAG Search"]
+    subgraph Inference ["3. Live Prediction & UI"]
+        F --> H["realtime_predictor.py"]
+        G --> H
+        H -->|btc-predictions| I["Streamlit Dashboard"]
+        I --> J["Fee-Adjusted Paper Trading"]
+        I --> K["Gemini Explainable AI"]
     end
 ```
+
+</details>
 
 ---
 

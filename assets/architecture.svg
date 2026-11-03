@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="cardGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f293d"/>
+      <stop offset="100%" stop-color="#151c2c"/>
+    </linearGradient>
+    <linearGradient id="blueCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="purpleCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4c1d95"/>
+      <stop offset="100%" stop-color="#1e1035"/>
+    </linearGradient>
+    <linearGradient id="emeraldCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+    <linearGradient id="amberCard" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+
+    <!-- Marker Arrow -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c084fc"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fbbf24"/>
+    </marker>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 800; fill: #f8fafc; font-size: 26px; }
+    .subtitle { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 500; fill: #94a3b8; font-size: 14px; }
+    .box-title { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 15px; fill: #f1f5f9; }
+    .box-sub { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 400; font-size: 12px; fill: #cbd5e1; }
+    .box-tag { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 11px; fill: #38bdf8; }
+    .flow-line { fill: none; stroke: #38bdf8; stroke-width: 2.5; stroke-dasharray: 6 3; }
+    .flow-line-purple { fill: none; stroke: #c084fc; stroke-width: 2.5; stroke-dasharray: 6 3; }
+    .flow-line-green { fill: none; stroke: #34d399; stroke-width: 2.5; }
+    .flow-line-amber { fill: none; stroke: #fbbf24; stroke-width: 2.5; stroke-dasharray: 6 3; }
+    .group-label { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.2px; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1200" height="780" rx="16" fill="url(#bgGrad)"/>
+  <rect x="1" y="1" width="1198" height="778" rx="16" fill="none" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Main Header -->
+  <text x="40" y="50" class="title">Crypto-AI MLOps System Architecture</text>
+  <text x="40" y="75" class="subtitle">Live Microstructure Ingestion • PyTorch Deep LSTM Sequence Model • Redpanda Streaming • Paper Trading &amp; Gemini XAI</text>
+
+  <!-- ======================================================== -->
+  <!-- SUBGRAPH 1: INGESTION & BROKER                           -->
+  <!-- ======================================================== -->
+  <rect x="40" y="110" width="280" height="630" rx="12" fill="#0f172a" fill-opacity="0.6" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="60" y="140" class="group-label" fill="#60a5fa">1. Data Ingestion &amp; Message Broker</text>
+
+  <!-- Binance WebSocket -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="165" width="240" height="85" rx="10" fill="url(#cardGradDark)" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="75" y="195" class="box-title">Binance WebSocket</text>
+    <text x="75" y="215" class="box-sub">Endpoint: wss://stream.binance.com</text>
+    <text x="75" y="233" class="box-tag" fill="#f59e0b">Topic: btcusdt@trade (Live Ticks)</text>
+  </g>
+
+  <!-- Python Producer -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="285" width="240" height="95" rx="10" fill="url(#cardGradDark)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="75" y="315" class="box-title">binance_producer.py</text>
+    <text x="75" y="335" class="box-sub">Parses price, qty, timestamp</text>
+    <text x="75" y="353" class="box-sub">Extracts maker/taker aggression flag (m)</text>
+    <text x="75" y="370" class="box-tag">AsyncIO WebSocket Client</text>
+  </g>
+
+  <!-- Redpanda Broker (btc-trades) -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="420" width="240" height="105" rx="10" fill="url(#amberCard)" stroke="#f59e0b" stroke-width="1.8"/>
+    <text x="75" y="450" class="box-title" fill="#fef3c7">Redpanda (Kafka API)</text>
+    <text x="75" y="470" class="box-sub" fill="#fde68a">Port: 19092 • High-throughput</text>
+    <text x="75" y="490" class="box-sub" fill="#fef3c7">Topic: 'btc-trades'</text>
+    <text x="75" y="510" class="box-tag" fill="#fef08a">Sub-millisecond Partitioning</text>
+  </g>
+
+  <!-- Qdrant Ingestion Consumer -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="565" width="240" height="95" rx="10" fill="url(#cardGradDark)" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="75" y="595" class="box-title">binance_consumer.py</text>
+    <text x="75" y="615" class="box-sub">SentenceTransformer: all-MiniLM-L6-v2</text>
+    <text x="75" y="635" class="box-sub">Generates 384-dim trade embeddings</text>
+    <text x="75" y="650" class="box-tag" fill="#c084fc">Qdrant Vector DB Upsert</text>
+  </g>
+
+  <!-- Ingestion Arrows -->
+  <path d="M 180 250 L 180 285" class="flow-line" marker-end="url(#arrow)"/>
+  <path d="M 180 380 L 180 420" class="flow-line" marker-end="url(#arrow)"/>
+  <path d="M 180 525 L 180 565" class="flow-line-purple" marker-end="url(#arrowPurple)"/>
+
+  <!-- ======================================================== -->
+  <!-- SUBGRAPH 2: FEATURE ENGINEERING & MODELS                 -->
+  <!-- ======================================================== -->
+  <rect x="350" y="110" width="450" height="630" rx="12" fill="#0f172a" fill-opacity="0.6" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="370" y="140" class="group-label" fill="#a855f7">2. Deep Learning, Feature Store &amp; ML Models</text>
+
+  <!-- Streaming Feature Engine -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="165" width="410" height="100" rx="10" fill="url(#cardGradDark)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="385" y="195" class="box-title">StreamingFeatureEngine (features/)</text>
+    <text x="385" y="215" class="box-sub">Computes 57 rolling features across 5s, 10s, 30s &amp; 60s windows</text>
+    <text x="385" y="233" class="box-sub">Volume Imbalance, Momentum Acceleration, Volatility, Trade Counts</text>
+    <text x="385" y="252" class="box-tag">Rolling Deque In-Memory State</text>
+  </g>
+
+  <!-- SQLite Feature Store -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="295" width="410" height="85" rx="10" fill="url(#cardGradDark)" stroke="#64748b" stroke-width="1.5"/>
+    <text x="385" y="325" class="box-title">Feature Store: historical_features.db</text>
+    <text x="385" y="345" class="box-sub">SQLite Database • 140,000+ Real Historical Tick Records</text>
+    <text x="385" y="365" class="box-tag" fill="#94a3b8">Continuous Segmentation (Session gaps &gt; 60s isolated)</text>
+  </g>
+
+  <!-- PyTorch Deep Learning Model (Primary) -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="415" width="410" height="145" rx="10" fill="url(#purpleCard)" stroke="#c084fc" stroke-width="2"/>
+    <text x="385" y="445" class="box-title" fill="#f5d0fe">🧠 PyTorch Deep Learning Model (LSTM + Attention)</text>
+    <text x="385" y="468" class="box-sub" fill="#fae8ff">• Architecture: Stacked 2-Layer LSTM (Hidden Dim: 64, Dropout: 0.25)</text>
+    <text x="385" y="488" class="box-sub" fill="#fae8ff">• Temporal Self-Attention Mechanism: Context vector c = &Sigma; &alpha;t ht</text>
+    <text x="385" y="508" class="box-sub" fill="#fae8ff">• Sequence Input: (10 Ticks &times; 53 Features) sliding window</text>
+    <text x="385" y="528" class="box-sub" fill="#fae8ff">• Output: 60-Second Direction Probability P(UP)</text>
+    <text x="385" y="546" class="box-tag" fill="#f0abfc">Artifact: models/dl_lstm_model.pth (Trained 15 Epochs)</text>
+  </g>
+
+  <!-- XGBoost Baseline Model -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="585" width="410" height="90" rx="10" fill="url(#cardGradDark)" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="385" y="615" class="box-title">XGBoost Baseline Model (models/model.pkl)</text>
+    <text x="385" y="635" class="box-sub">Gradient Boosted Trees (300 estimators, max depth 5, scale_pos_weight)</text>
+    <text x="385" y="655" class="box-tag" fill="#f59e0b">Classical ML Comparative Baseline for Research</text>
+  </g>
+
+  <!-- Connectors between Ingestion and Engine -->
+  <path d="M 300 470 L 335 470 L 335 215 L 370 215" class="flow-line" marker-end="url(#arrow)"/>
+  <path d="M 575 265 L 575 295" class="flow-line" marker-end="url(#arrow)"/>
+  <path d="M 575 380 L 575 415" class="flow-line-purple" marker-end="url(#arrowPurple)"/>
+  <path d="M 720 380 L 720 585" class="flow-line-amber" marker-end="url(#arrowAmber)"/>
+
+  <!-- ======================================================== -->
+  <!-- SUBGRAPH 3: INFERENCE, STREAMLIT UI & GENAI             -->
+  <!-- ======================================================== -->
+  <rect x="830" y="110" width="330" height="630" rx="12" fill="#0f172a" fill-opacity="0.6" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="850" y="140" class="group-label" fill="#34d399">3. Real-Time Inference &amp; UI</text>
+
+  <!-- Live Predictor -->
+  <g filter="url(#shadow)">
+    <rect x="850" y="165" width="290" height="120" rx="10" fill="url(#cardGradDark)" stroke="#34d399" stroke-width="1.8"/>
+    <text x="865" y="195" class="box-title">realtime_predictor.py</text>
+    <text x="865" y="215" class="box-sub">Dual-Engine Inference: PyTorch + XGB</text>
+    <text x="865" y="235" class="box-sub">Inference Latency: &lt; 3.5 milliseconds</text>
+    <text x="865" y="255" class="box-sub">Quant Deadband: P&ge;0.55 UP / P&le;0.45 DOWN</text>
+    <text x="865" y="272" class="box-tag" fill="#34d399">Topic: 'btc-predictions' (Redpanda)</text>
+  </g>
+
+  <!-- Streamlit Dashboard -->
+  <g filter="url(#shadow)">
+    <rect x="850" y="325" width="290" height="185" rx="10" fill="url(#emeraldCard)" stroke="#10b981" stroke-width="2"/>
+    <text x="865" y="355" class="box-title" fill="#ecfdf5">Streamlit Dashboard (ui/app.py)</text>
+    <text x="865" y="380" class="box-sub" fill="#d1fae5">1. Live Price &amp; Signal Stream Chart</text>
+    <text x="865" y="400" class="box-sub" fill="#d1fae5">2. $10,000 Fee-Adjusted Paper Trading</text>
+    <text x="865" y="420" class="box-sub" fill="#d1fae5">   (Binance 0.04% Taker Fee Deducted)</text>
+    <text x="865" y="440" class="box-sub" fill="#d1fae5">3. PyTorch Epoch Loss &amp; Accuracy Curves</text>
+    <text x="865" y="460" class="box-sub" fill="#d1fae5">4. Concept Drift Detection Alert</text>
+    <text x="865" y="490" class="box-tag" fill="#a7f3d0">Interactive Browser UI: localhost:8501</text>
+  </g>
+
+  <!-- Explainable AI & RAG -->
+  <g filter="url(#shadow)">
+    <rect x="850" y="540" width="290" height="140" rx="10" fill="url(#cardGradDark)" stroke="#38bdf8" stroke-width="1.8"/>
+    <text x="865" y="570" class="box-title">Google Gemini (XAI &amp; RAG)</text>
+    <text x="865" y="593" class="box-sub">• XAI: Explains live LSTM order-flow signals</text>
+    <text x="865" y="613" class="box-sub">• RAG: Natural Language Querying</text>
+    <text x="865" y="633" class="box-sub">• Vector Memory: Qdrant DB (port 6333)</text>
+    <text x="865" y="660" class="box-tag" fill="#38bdf8">Model: gemini-1.5-flash</text>
+  </g>
+
+  <!-- Connectors to Inference and UI -->
+  <path d="M 780 470 L 815 470 L 815 225 L 850 225" class="flow-line-purple" marker-end="url(#arrowPurple)"/>
+  <path d="M 995 285 L 995 325" class="flow-line-green" marker-end="url(#arrowGreen)"/>
+  <path d="M 995 510 L 995 540" class="flow-line" marker-end="url(#arrow)"/>
+
+</svg>
