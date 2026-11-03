@@ -32,6 +32,11 @@ MODEL_PKL_PATH = os.path.join(MODELS_DIR, "model.pkl")
 ROOT_MODEL_PKL_PATH = os.path.join(BASE_DIR, "model.pkl")
 METADATA_PATH = os.path.join(MODELS_DIR, "model_metadata.json")
 
+# Deep Learning (PyTorch LSTM + Attention)
+DL_MODEL_PATH = os.path.join(MODELS_DIR, "dl_lstm_model.pth")
+DL_METADATA_PATH = os.path.join(MODELS_DIR, "dl_model_metadata.json")
+DL_SEQUENCE_LENGTH = 10
+
 # Vector Database (Qdrant)
 QDRANT_HOST = os.environ.get("QDRANT_HOST", "http://localhost:6333")
 QDRANT_COLLECTION = "crypto_memory"
