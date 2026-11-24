@@ -6,14 +6,7 @@ An end-to-end, academic and production-grade real-time MLOps pipeline that inges
 
 ## 🏗️ System Architecture
 
-<div align="center">
-  <img src="./assets/architecture.svg" alt="Crypto-AI MLOps System Architecture" width="100%" />
-</div>
-
-<br/>
-
-<details open>
-<summary><b>📊 Click to toggle GitHub Native Mermaid Flowchart</b></summary>
+![Crypto-AI MLOps System Architecture](assets/architecture.svg)
 
 ```mermaid
 flowchart TD
@@ -38,14 +31,14 @@ flowchart TD
     subgraph MLInference ["3. Dual Model Inference Engine"]
         F["PyTorch Deep Learning (Stacked 2-Layer LSTM + Self-Attention)"]
         G["XGBoost Classical ML Baseline (Depth 5 Trees)"]
-        H["realtime_predictor.py (Dual Inference Service, Latency < 3.5ms)"]
+        H["realtime_predictor.py (Dual Inference Service, Latency under 3.5ms)"]
         I["Redpanda Kafka Broker (Topic: btc-predictions)"]
         
-        E -.->|Sequence Tensor [B, 10, 53]| F
+        E -.->|10-Tick Sequence Tensor| F
         E -.->|Tabular Feature Vector| G
         F -->|Temporal Prediction| H
         G -->|Baseline Prediction| H
-        H -->|P_UP, Signal, Confidence| I
+        H -->|Predictions and Confidence| I
     end
 
     %% 4. DASHBOARD & PAPER TRADING
@@ -72,8 +65,6 @@ flowchart TD
         O -->|Institutional Explanation| J
     end
 ```
-
-</details>
 
 ---
 
