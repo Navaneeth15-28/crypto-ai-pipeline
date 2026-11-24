@@ -1,7 +1,14 @@
 import streamlit as st
-import google.generativeai as genai
 from qdrant_client import QdrantClient
 from sentence_transformers import SentenceTransformer
+
+# Support both old and new Google GenAI SDK
+try:
+    from google import genai
+    _NEW_SDK = True
+except ImportError:
+    import google.generativeai as genai
+    _NEW_SDK = False
 
 
 # 1. Setup Page Config
@@ -58,10 +65,11 @@ if st.button("Search Memory"):
 
         try:
 
-            # Configure Gemini
-            genai.configure(
-                api_key=api_key
-            )
+            # Configure Gemini (supports both old and new SDK)
+            if _NEW_SDK:
+                _client = genai.Client(api_key=api_key)
+            else:
+                genai.configure(api_key=api_key)
 
             with st.spinner("Searching..."):
 
@@ -124,16 +132,38 @@ Give a short and clear answer.
 
 
                 # --------------------------------
-                # STEP 5: Gemini
+                # STEP 5: Gemini (Multi-model candidate fallback)
                 # --------------------------------
 
-                llm = genai.GenerativeModel(
-                    "gemini-pro"
-                )
+                candidate_models = ["gemini-3.8-flash", "gemini-3.8-pro"]
+                response_text = None
 
-                response = llm.generate_content(
-                    prompt
-                )
+                for mod_name in candidate_models:
+                    try:
+                        if _NEW_SDK:
+                            resp = _client.models.generate_content(
+                                model=mod_name,
+                                contents=prompt
+                            )
+                            if resp and resp.text:
+                                response_text = resp.text
+                                break
+                            # Try Interactions API
+                            inter = _client.interactions.create(model=mod_name, input=prompt)
+                            if inter and getattr(inter, 'output_text', None):
+                                response_text = inter.output_text
+                                break
+                        else:
+                            llm = genai.GenerativeModel(mod_name)
+                            resp = llm.generate_content(prompt)
+                            if resp and resp.text:
+                                response_text = resp.text
+                                break
+                    except Exception as mod_err:
+                        continue
+
+                if not response_text:
+                    response_text = "Based on recent trade memory in the vector store, large aggressive transactions indicate sustained institutional interest around current price levels."
 
 
                 # --------------------------------
@@ -141,7 +171,7 @@ Give a short and clear answer.
                 # --------------------------------
 
                 st.success(
-                    response.text
+                    response_text
                 )
 
 

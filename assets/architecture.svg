@@ -198,7 +198,7 @@
     <text x="865" y="593" class="box-sub">• XAI: Explains live LSTM order-flow signals</text>
     <text x="865" y="613" class="box-sub">• RAG: Natural Language Querying</text>
     <text x="865" y="633" class="box-sub">• Vector Memory: Qdrant DB (port 6333)</text>
-    <text x="865" y="660" class="box-tag" fill="#38bdf8">Model: gemini-1.5-flash</text>
+    <text x="865" y="660" class="box-tag" fill="#38bdf8">Model: gemini-3.8-flash</text>
   </g>
 
   <!-- Connectors to Inference and UI -->

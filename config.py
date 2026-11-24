@@ -62,4 +62,4 @@ INITIAL_PAPER_CAPITAL = 10000.0  # $10,000 USDT starting portfolio
 # ------------------------------------------------------------
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 EMBEDDING_DIM = 384
-GEMINI_MODEL_NAME = "gemini-1.5-flash"
+GEMINI_MODEL_NAME = "gemini-3.8-flash"
