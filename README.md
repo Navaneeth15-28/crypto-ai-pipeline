@@ -6,89 +6,74 @@ An end-to-end, academic and production-grade real-time MLOps pipeline that inges
 
 ## 🏗️ System Architecture
 
+<div align="center">
+  <img src="./assets/architecture.svg" alt="Crypto-AI MLOps System Architecture" width="100%" />
+</div>
+
+<br/>
+
+<details open>
+<summary><b>📊 Click to toggle GitHub Native Mermaid Flowchart</b></summary>
+
 ```mermaid
 flowchart TD
-    %% SUBGRAPH 1: INGESTION
-    subgraph S1 ["1. Live Ingestion & Message Broker"]
-        A["📡 Binance WebSocket<br/><code>wss://stream.binance.com</code>"]
-        B["⚡ binance_producer.py<br/><i>AsyncIO WebSocket Client</i>"]
-        C{{"📬 Redpanda / Kafka Broker<br/><b>Topic: 'btc-trades'</b><br/><i>Port: 19092</i>"}}
+    %% 1. INGESTION
+    subgraph Ingestion ["1. Live Ingestion and Message Broker"]
+        A["Binance WebSocket (wss://stream.binance.com)"]
+        B["binance_producer.py (AsyncIO WebSocket Client)"]
+        C["Redpanda Kafka Broker (Topic: btc-trades, Port: 19092)"]
         A -->|Live Ticks: Price, Qty, Maker Flag| B
         B -->|Sub-millisecond JSON Pub| C
     end
 
-    %% SUBGRAPH 2: FEATURE ENGINEERING
-    subgraph S2 ["2. Microstructure Feature Store"]
-        D["⚙️ StreamingFeatureEngine<br/><i>57 Rolling Window Features</i><br/>(Imbalance, Momentum, Volatility)"]
-        E[("💾 SQLite Feature Store<br/><b>historical_features.db</b><br/><i>140,000+ Real Historical Ticks</i>")]
+    %% 2. FEATURE ENGINEERING
+    subgraph FeatureEng ["2. Microstructure Feature Store"]
+        D["StreamingFeatureEngine (57 Rolling Window Features)"]
+        E[("SQLite Feature Store: historical_features.db (140,000+ Ticks)")]
         C -->|Live Tick Stream| D
         D -->|Persist Features| E
     end
 
-    %% SUBGRAPH 3: DUAL ML INFERENCE
-    subgraph S3 ["3. Dual Model Inference Engine"]
-        F["🧠 PyTorch Deep Learning Model<br/><b>Stacked 2-Layer LSTM + Self-Attention</b><br/><i>(10-Tick &times; 53-Feature Sliding Window)</i>"]
-        G["🌲 XGBoost Baseline Model<br/><b>Gradient Boosted Trees (Depth 5)</b><br/><i>Tabular Benchmark</i>"]
-        H["🚀 realtime_predictor.py<br/><b>Dual Inference Service</b><br/><i>Latency: &lt; 3.5ms | Deadband: 55%</i>"]
-        I{{"🎯 Redpanda / Kafka Broker<br/><b>Topic: 'btc-predictions'</b><br/><i>P(UP), Signal, Confidence</i>"}}
+    %% 3. DUAL ML INFERENCE
+    subgraph MLInference ["3. Dual Model Inference Engine"]
+        F["PyTorch Deep Learning (Stacked 2-Layer LSTM + Self-Attention)"]
+        G["XGBoost Classical ML Baseline (Depth 5 Trees)"]
+        H["realtime_predictor.py (Dual Inference Service, Latency < 3.5ms)"]
+        I["Redpanda Kafka Broker (Topic: btc-predictions)"]
         
         E -.->|Sequence Tensor [B, 10, 53]| F
         E -.->|Tabular Feature Vector| G
         F -->|Temporal Prediction| H
         G -->|Baseline Prediction| H
-        H -->|Streaming Output| I
+        H -->|P_UP, Signal, Confidence| I
     end
 
-    %% SUBGRAPH 4: DASHBOARD & PAPER TRADING
-    subgraph S4 ["4. Interactive Streamlit Dashboard & MLOps"]
-        J["📊 Streamlit Web App (ui/app.py)<br/><i>Localhost: 8501</i>"]
-        K["💰 $10,000 Paper Trading Simulator<br/><i>Fee-Adjusted: Binance 0.04% Taker</i>"]
-        L["📈 Production MLOps Monitoring<br/><i>Concept Drift & Latency Gauges</i>"]
+    %% 4. DASHBOARD & PAPER TRADING
+    subgraph Dashboard ["4. Streamlit Dashboard and MLOps"]
+        J["Streamlit Web App: ui/app.py (localhost:8501)"]
+        K["$10,000 Paper Trading Simulator (Binance 0.04% Taker Fee)"]
+        L["Production MLOps Monitoring (Drift and Latency Gauges)"]
         
         I -->|Sub-second Consumer| J
         J --> K
         J --> L
     end
 
-    %% SUBGRAPH 5: GENAI & STREAMING RAG
-    subgraph S5 ["5. Explainable AI & Streaming RAG"]
-        M["🔍 binance_consumer.py<br/><i>Embeddings: all-MiniLM-L6-v2</i>"]
-        N[("🗄️ Qdrant Vector Database<br/><b>Port: 6333</b><br/><i>384-Dim Trade Embeddings</i>")]
-        O["🤖 Google Gemini 3.8 Flash<br/><b>Explainable AI (XAI) & RAG</b><br/><i>Natural Language Order-Flow Reasoning</i>"]
+    %% 5. GENAI & STREAMING RAG
+    subgraph GenAI ["5. Explainable AI and Streaming RAG"]
+        M["binance_consumer.py (SentenceTransformer: all-MiniLM-L6-v2)"]
+        N[("Qdrant Vector Database: Port 6333 (384-Dim Embeddings)")]
+        O["Google Gemini 3.8 Flash (Explainable AI and RAG Answers)"]
         
         C -->|Raw Trade Stream| M
         M -->|Upsert Dense Vectors| N
-        N <-->|Semantic Vector Search| J
-        J <-->|Microstructure Prompt & Features| O
+        N -->|Semantic Vector Search| J
+        J -->|Microstructure Prompt| O
+        O -->|Institutional Explanation| J
     end
-
-    %% Styling
-    style S1 fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
-    style S2 fill:#0f172a,stroke:#a855f7,stroke-width:2px,color:#f8fafc
-    style S3 fill:#0f172a,stroke:#c084fc,stroke-width:2px,color:#f8fafc
-    style S4 fill:#0f172a,stroke:#34d399,stroke-width:2px,color:#f8fafc
-    style S5 fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#f8fafc
-
-    style A fill:#1e293b,stroke:#f59e0b,stroke-width:1.5px,color:#f8fafc
-    style B fill:#1e293b,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc
-    style C fill:#78350f,stroke:#f59e0b,stroke-width:2px,color:#fef3c7
-    style D fill:#1e293b,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc
-    style E fill:#1e293b,stroke:#64748b,stroke-width:1.5px,color:#f8fafc
-    style F fill:#4c1d95,stroke:#c084fc,stroke-width:2px,color:#fae8ff
-    style G fill:#1e293b,stroke:#f59e0b,stroke-width:1.5px,color:#f8fafc
-    style H fill:#1e293b,stroke:#34d399,stroke-width:2px,color:#f8fafc
-    style I fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5
-    style J fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#ecfdf5
-    style K fill:#1e293b,stroke:#34d399,stroke-width:1.5px,color:#f8fafc
-    style L fill:#1e293b,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc
-    style M fill:#1e293b,stroke:#a855f7,stroke-width:1.5px,color:#f8fafc
-    style N fill:#4c1d95,stroke:#a855f7,stroke-width:2px,color:#f5d0fe
-    style O fill:#1e3a8a,stroke:#38bdf8,stroke-width:2px,color:#e0f2fe
 ```
 
-<div align="center">
-  <p><sub><i>💡 Interactive, native GitHub Mermaid architecture diagram. You can also inspect the vector SVG layout at <a href="./assets/architecture.svg">assets/architecture.svg</a>.</i></sub></p>
-</div>
+</details>
 
 ---
 

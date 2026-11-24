@@ -143,8 +143,8 @@
     <rect x="370" y="415" width="410" height="145" rx="10" fill="url(#purpleCard)" stroke="#c084fc" stroke-width="2"/>
     <text x="385" y="445" class="box-title" fill="#f5d0fe">🧠 PyTorch Deep Learning Model (LSTM + Attention)</text>
     <text x="385" y="468" class="box-sub" fill="#fae8ff">• Architecture: Stacked 2-Layer LSTM (Hidden Dim: 64, Dropout: 0.25)</text>
-    <text x="385" y="488" class="box-sub" fill="#fae8ff">• Temporal Self-Attention Mechanism: Context vector c = &Sigma; &alpha;t ht</text>
-    <text x="385" y="508" class="box-sub" fill="#fae8ff">• Sequence Input: (10 Ticks &times; 53 Features) sliding window</text>
+    <text x="385" y="488" class="box-sub" fill="#fae8ff">• Temporal Self-Attention Mechanism: Context vector c = &#931; &#945;t ht</text>
+    <text x="385" y="508" class="box-sub" fill="#fae8ff">• Sequence Input: (10 Ticks &#215; 53 Features) sliding window</text>
     <text x="385" y="528" class="box-sub" fill="#fae8ff">• Output: 60-Second Direction Probability P(UP)</text>
     <text x="385" y="546" class="box-tag" fill="#f0abfc">Artifact: models/dl_lstm_model.pth (Trained 15 Epochs)</text>
   </g>
@@ -175,7 +175,7 @@
     <text x="865" y="195" class="box-title">realtime_predictor.py</text>
     <text x="865" y="215" class="box-sub">Dual-Engine Inference: PyTorch + XGB</text>
     <text x="865" y="235" class="box-sub">Inference Latency: &lt; 3.5 milliseconds</text>
-    <text x="865" y="255" class="box-sub">Quant Deadband: P&ge;0.55 UP / P&le;0.45 DOWN</text>
+    <text x="865" y="255" class="box-sub">Quant Deadband: P &gt;= 0.55 UP / P &lt;= 0.45 DOWN</text>
     <text x="865" y="272" class="box-tag" fill="#34d399">Topic: 'btc-predictions' (Redpanda)</text>
   </g>
 
